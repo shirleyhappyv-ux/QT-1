@@ -2,11 +2,14 @@ QT += core gui widgets
 
 TEMPLATE = app
 TARGET = QT-1
-INCLUDEPATH += .
 
-# 源文件指向你的 main.cpp
-SOURCES += main.cpp
+# 头文件
+HEADERS += mainwindow.h
 
-# 核心：引入 Alpine 的 GDAL 编译依赖链接（分两行写，最稳妥）
+# 源文件
+SOURCES += main.cpp \
+           mainwindow.cpp
+
+# 引入 GDAL 依赖
 CONFIG += link_pkgconfig
 PKGCONFIG += gdal
