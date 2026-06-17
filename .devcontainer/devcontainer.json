@@ -4,5 +4,5 @@
   "features": {
     "ghcr.io/devcontainers/features/desktop-nyancat:1": {}
   },
-  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools build-essential gdb"
+  "postCreateCommand": "sudo apt-get update && sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools build-essential gdb qmake"
 }

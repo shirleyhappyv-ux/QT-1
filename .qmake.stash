@@ -1,0 +1,21 @@
+QMAKE_CXX.QT_COMPILER_STDCXX = 201703L
+QMAKE_CXX.QMAKE_GCC_MAJOR_VERSION = 15
+QMAKE_CXX.QMAKE_GCC_MINOR_VERSION = 2
+QMAKE_CXX.QMAKE_GCC_PATCH_VERSION = 0
+QMAKE_CXX.COMPILER_MACROS = \
+    QT_COMPILER_STDCXX \
+    QMAKE_GCC_MAJOR_VERSION \
+    QMAKE_GCC_MINOR_VERSION \
+    QMAKE_GCC_PATCH_VERSION
+QMAKE_CXX.INCDIRS = \
+    /usr/include/c++/15.2.0 \
+    /usr/include/c++/15.2.0/x86_64-alpine-linux-musl \
+    /usr/include/c++/15.2.0/backward \
+    /usr/include/fortify \
+    /usr/include \
+    /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0/include
+QMAKE_CXX.LIBDIRS = \
+    /usr/lib/gcc/x86_64-alpine-linux-musl/15.2.0 \
+    /usr/x86_64-alpine-linux-musl/lib \
+    /usr/lib \
+    /lib
