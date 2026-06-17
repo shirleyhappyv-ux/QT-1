@@ -99,7 +99,7 @@ void MainWindow::slotImportMap() {
     QString filePath = QFileDialog::getOpenFileName(this, "选择遥感地图文件", "", "GIS Files (*.gpkg *.dem *.tif *.tiff)");
     if (filePath.isEmpty()) return;
 
-    GDALDataset *poDataset = (GDALDataset *) GDALOpen(filePath.toUtf8().constData(), GA_ReadOnly);
+    GDALDataset *poDataset = (GDALDataset *) GDALOpenEx(filePath.toUtf8().constData(), GDAL_OF_READONLY | GDAL_OF_ALL, NULL, NULL, NULL);
     if (poDataset == NULL) {
         QMessageBox::critical(this, "错误", "GDAL 无法解析该地图格式！");
         return;
