@@ -2,38 +2,46 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QTreeWidget>
+#include <QWidget>
 #include <QLineEdit>
 #include <QTextEdit>
-#include <QWidget>
+#include <QListWidget>
+#include <QLabel>
+#include <QToolBar>
+#include <QStatusBar>
 
-// 自定义地图画布
+// ==================== 1. 画布组件声明 ====================
 class MapCanvas : public QWidget {
     Q_OBJECT
 public:
-    MapCanvas(QWidget *parent = nullptr);
-    void loadDemInfo(const QString &path);
+    explicit MapCanvas(QWidget *parent = nullptr);
+    void setHasData(bool hasData);
+    void setLockedFeature(const QString &featureName);
+
 protected:
     void paintEvent(QPaintEvent *event) override;
+
 private:
     bool m_hasData;
-    QString m_demPath;
+    QString m_lockedFeature;
 };
 
-// 主窗口
+// ==================== 2. 主窗口声明 ====================
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    MainWindow();
+    explicit MainWindow(QWidget *parent = nullptr);
+    virtual ~MainWindow();
+
 private slots:
     void slotImportMap();
     void slotSearchFeature();
+
 private:
-    void initUI();
-    MapCanvas *m_canvas;
-    QTreeWidget *m_layerTree;
-    QLineEdit *m_searchEdit;
-    QTextEdit *m_logOutput;
+    MapCanvas *m_canvas;        // 物理绑定中央画布
+    QLineEdit *m_searchEdit;    // 搜索输入框
+    QTextEdit *m_logOutput;     // 日志输出框
+    QListWidget *m_layerList;   // 左侧图层列表
 };
 
 #endif // MAINWINDOW_H
