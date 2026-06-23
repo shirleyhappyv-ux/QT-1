@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QPushButton> 
 #include "gdal_priv.h"
+#include <QStatusBar>
 
 // ==================== 1. 画布组件实现 ====================
 MapCanvas::MapCanvas(QWidget *parent) : QWidget(parent), m_hasData(false) {
@@ -74,6 +75,12 @@ void MapCanvas::paintEvent(QPaintEvent *event) {
         painter.setPen(QColor(150, 170, 190));
         painter.drawText(rect(), Qt::AlignCenter, "暂无图层，请通过工具栏导入 GPKG/DEM 地图");
     }
+}
+
+void MapCanvas::setMapFilePath(const QString &path) {
+    m_filePath = path;
+    m_hasData = true;
+    update();
 }
 
 // ==================== 2. 主窗口实现 ====================
@@ -152,11 +159,16 @@ void MainWindow::slotImportMap() {
     m_layerList->addItem(item);
 
     m_logOutput->append("成功导入地图:");
+
     //  正确的代码
     m_logOutput->append(QString("路径: %1").arg(filePath));
     m_logOutput->append(QString("分辨率: %1x%2").arg(poDataset->GetRasterXSize()).arg(poDataset->GetRasterYSize()));
     m_logOutput->append(QString("波段数: %1").arg(poDataset->GetRasterCount()));
 
+    // 🚀 精准加入这一行，告诉中间的画布：有数据了，立刻让 GDAL 开始画画！
+    m_canvas->setHasData(true); 
+    m_canvas->update(); // 强制触发 paintEvent 重绘
+    
     GDALClose(poDataset);
 }
 
@@ -179,3 +191,5 @@ void MainWindow::slotSearchFeature() {
     
     statusBar()->showMessage(QString("目标已锁定。"));
 }
+
+
